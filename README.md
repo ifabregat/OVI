@@ -17,6 +17,7 @@ PostgreSQL -> 16.3
 2. Flask -> `pip install Flask==3.0.3`
 3. Flask-Cors -> `pip install Flask-CORS==4.0.1`
 4. PostgreSQL -> `sudo apt install postgresql postgresql-contrib`
+5. Virtual Environment -> `python3 -m venv venv`
 
 ## Run
 - Virtual Environment -> `source venv/bin/activate`
