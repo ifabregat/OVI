@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <title>Aviacion</title>
+    <title>Lineas Aereas</title>
 </head>
 <body class="bg-primary-subtle">
   <header>
@@ -23,6 +23,31 @@
             </ul>
       </div>
   </header>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+  <main>
+    <main>
+      <div class="container">
+        <div class="row">
+          <div class="col d-flex justify-content-between">
+            <a href="/Agregar" class="btn text-bg-primary">Agregar Linea</a>
+            <select class="form-select w-auto" aria-label="Default select example">
+              <option selected>Ordenar por...</option>
+              <option value="1">Modelo</option>
+              <option value="2">Marca</option>
+              <option value="3">Año</option>
+            </select>
+          </div>
+        </div>
+      </div>
+  
+      <div class="container">
+        <div class="row g-4" id="characters">
+        </div>
+      </div>
+  
+    </main>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>
