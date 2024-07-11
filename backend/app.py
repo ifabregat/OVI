@@ -25,9 +25,46 @@ def get_aviones():
                 'modelo': avion.modelo,
                 'propulsion': avion.propulsion,
                 'aniofabricacion': avion.aniofabricacion,
-                'foto': avion.foto
+                'foto': avion.foto,
+                'paisfabricacion': avion.paisfabricacion
             })
         return jsonify({'aviones': aviones_data})
+    except Exception as error:
+        print(f"Error: {error}")
+        return jsonify({'mensaje': 'Error en el servidor'}), 500
+
+@app.route("/aviones", methods=["POST"])
+def create_avion():
+    try:
+        data = request.get_json()
+        fabricante = request.json.get('fabricante')
+        modelo = request.json.get('modelo')
+        propulsion = request.json.get('propulsion')
+        aniofabricacion = request.json.get('aniofabricacion')
+        foto = request.json.get('foto')
+        paisfabricacion = request.json.get('paisfabricacion')
+
+        nuevo_avion = Avion(
+            fabricante=fabricante,
+            modelo=modelo,
+            propulsion=propulsion,
+            aniofabricacion=aniofabricacion,
+            foto=foto,
+            paisfabricacion=paisfabricacion
+        )
+
+        db.session.add(nuevo_avion)
+        db.session.commit()
+
+        return jsonify({"mensaje": "Avión agregado exitosamente", "avion": {
+            'id': nuevo_avion.id,
+            'fabricante': nuevo_avion.fabricante,
+            'modelo': nuevo_avion.modelo,
+            'propulsion': nuevo_avion.propulsion,
+            'aniofabricacion': nuevo_avion.aniofabricacion,
+            'foto': nuevo_avion.foto,
+            'paisfabricacion': nuevo_avion.paisfabricacion,
+        }}), 201
     except Exception as error:
         print(f"Error: {error}")
         return jsonify({'mensaje': 'Error en el servidor'}), 500
