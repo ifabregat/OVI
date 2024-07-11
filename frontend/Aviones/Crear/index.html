@@ -7,11 +7,22 @@
     <title>Agregar Avion</title>
 </head>
 <body class="bg-primary-subtle">
-  <header>
-    <div class="container-xxl">
-      <h1 class="text-center pt-3 pb-3 rounded text-bg-primary fs-2" style="width: 100%;">Objeto Volador Identificado</h1>
-    </div> 
-  </header>
+    <header>
+        <div class="container-xxl pb-3">
+            <h1 class="text-center pt-3 pb-3 rounded text-bg-primary fs-2" style="width: 100%;">Objeto Volador Identificado</h1>
+            <ul class="nav nav-pills nav-fill">
+                <li class="nav-item">
+                  <a class="nav-link"  href="/index.html">OVI</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="/Aviones/index.html">Aviones</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/LineasAereas/index.html">Líneas Aéreas</a>
+                </li>
+              </ul>
+        </div>
+    </header>
 
   <main>
     <div class="container my-4">
@@ -35,23 +46,23 @@
 
                             <label class="mb-3 me-3">Propulsion: </label>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" value="turbohelice" type="radio" name="propulsion"
-                                    id="turbohelice" required>
-                                <label class="form-check-label" for="turbohelice">
+                                <input class="form-check-input" value="helice" type="radio" name="propulsion"
+                                    id="propulsion-helice" required>
+                                <label class="form-check-label" for="propulsion-helice">
                                     Turbohelice
                                 </label>
                             </div>
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" value="piston" type="radio" name="propulsion"
-                                    id="piston" required>
-                                <label class="form-check-label" for="piston">
+                                    id="propulsion-piston" required>
+                                <label class="form-check-label" for="propulsion-piston">
                                     Piston
                                 </label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" value="turboreactor" type="radio" name="propulsion"
-                                    id="turboreactor" required>
-                                <label class="form-check-label" for="turboreactor">
+                                <input class="form-check-input" value="reactor" type="radio" name="propulsion"
+                                    id="propulsion-reactor" required>
+                                <label class="form-check-label" for="propulsion-reactor">
                                     Turboreactor
                                 </label>
                             </div>
@@ -64,12 +75,12 @@
 
                             <label for="mb-1">Pais de fabricacion</label>
                             <select class="form-select mb-3" id="paisfabricacion" name="paisfabricacion" required>
-                                <option value="arg">Argentina</option>
-                                <option value="usa">Estados Unidos</option>
-                                <option value="fra">Francia</option>
-                                <option value="bra">Brasil</option>
-                                <option value="uk">Reino Unido</option>
-                                <option value="can">Canada</option>
+                                <option value="Argentina">Argentina</option>
+                                <option value="Estados Unidos">Estados Unidos</option>
+                                <option value="Francia">Francia</option>
+                                <option value="Brasil">Brasil</option>
+                                <option value="Reino Unido">Reino Unido</option>
+                                <option value="Canada">Canada</option>
                             </select>
 
                             <div class="mb-3">
