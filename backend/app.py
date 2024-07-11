@@ -78,7 +78,7 @@ def get_avion_by_id(id):
             avion_data = {
                 'id': avion.id,
                 'fabricante': avion.fabricante,
-                'odelo': avion.modelo,
+                'modelo': avion.modelo,
                 'propulsion': avion.propulsion,
                 'aniofabricacion': avion.aniofabricacion,
                 'foto': avion.foto,
@@ -125,6 +125,33 @@ def get_lineas_aereas():
                 'foto': linea_aerea.foto
             })
         return jsonify({'lineas_aereas': lineas_aereas_data})
+    except Exception as error:
+        print(f"Error: {error}")
+        return jsonify({'mensaje': 'Error en el servidor'}), 500
+    
+@app.route("/lineasaereas", methods=["POST"])
+def create_lineaaerea():
+    try:
+        data = request.get_json()
+        nombre = request.json.get('nombre')
+        pais = request.json.get('pais')
+        foto = request.json.get('foto')
+
+        nueva_lineaaerea = LineaAerea(
+            nombre=nombre,
+            pais=pais,
+            foto=foto
+        )
+
+        db.session.add(nueva_lineaaerea)
+        db.session.commit()
+
+        return jsonify({"mensaje": "Linea aerea agregada exitosamente", "linea_aerea": {
+            'id': nueva_lineaaerea.id,
+            'nombre': nueva_lineaaerea.nombre,
+            'pais': nueva_lineaaerea.pais,
+            'foto': nueva_lineaaerea.foto
+        }}), 201
     except Exception as error:
         print(f"Error: {error}")
         return jsonify({'mensaje': 'Error en el servidor'}), 500
