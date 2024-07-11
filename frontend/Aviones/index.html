@@ -12,8 +12,8 @@
         }
 
         .card-img-top {
-          height: 150px;
-          object-fit: cover;
+          width: 100%;
+          object-fit: contain;
         }
 
         .card-body {
@@ -86,7 +86,7 @@
 
         const card = document.createElement("a");
         card.setAttribute("class", "card text-decoration-none");
-        card.setAttribute("href", `/Aviones/avion?id=${avion.id}`);
+        card.setAttribute("href", `/Aviones/Avion/?id=${avion.id}`);
 
         const image = document.createElement("img");
         image.setAttribute("class", "card-img-top");
