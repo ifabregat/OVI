@@ -5,6 +5,8 @@ if (id === null) {
     window.location.href = "/Aviones/index.html";
 }
 
+document.getElementById("btnEditar").setAttribute("href",`/Aviones/Editar/?id=${id}`)
+
 function respuesta_recibida(respuesta) {
     return respuesta.json();
 }
