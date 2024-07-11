@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, redirect
 from flask_cors import CORS
 from models import db, Avion, LineaAerea, AvionesLineas 
 
@@ -11,7 +11,7 @@ db.init_app(app)
 
 @app.route('/')
 def home():
-    return "Hola mundo!"
+    return redirect('/aviones')
 
 @app.route('/aviones', methods=['GET'])
 def get_aviones():
