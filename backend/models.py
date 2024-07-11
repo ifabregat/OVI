@@ -9,6 +9,7 @@ class Avion(db.Model):
     propulsion = db.Column(db.String(255), nullable=False)
     aniofabricacion = db.Column(db.Integer)
     foto = db.Column(db.String(255))
+    paisfabricacion = db.Column(db.String(255), nullable=False) 
 
 class LineaAerea(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -19,4 +20,4 @@ class LineaAerea(db.Model):
 class AvionesLineas(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     idavion = db.Column(db.Integer, db.ForeignKey('avion.id'))
-    idlinea = db.Column(db.Integer, db.ForeignKey('linea_aerea.id'))
+    idlinea = db.Column(db.Integer, db.ForeignKey('linea_aerea.id'))  
