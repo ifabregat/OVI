@@ -71,21 +71,27 @@ def create_avion():
 
 @app.route("/aviones/<id>", methods=["GET"])
 def get_avion_by_id(id):
-    avion = Avion.query.get(id)
-    if avion:
-         avion_data = {
-             'id': avion.id,
-            'fabricante': avion.fabricante,
-            'modelo': avion.modelo,
-            'propulsion': avion.propulsion,
-            'aniofabricacion': avion.aniofabricacion,
-            'foto': avion.foto,
-            'paisfabricacion': avion.paisfabricacion
-        }
-    return jsonify({'avion': avion_data})
+    try:
+        id = int(id)
+        avion = Avion.query.get(id)
+        if avion:
+            avion_data = {
+                'id': avion.id,
+                'fabricante': avion.fabricante,
+                'odelo': avion.modelo,
+                'propulsion': avion.propulsion,
+                'aniofabricacion': avion.aniofabricacion,
+                'foto': avion.foto,
+                'paisfabricacion': avion.paisfabricacion
+            }
+            return jsonify({'avion': avion_data})
+        else:
+            return jsonify({'error': 'Avión no encontrado'}), 404
+    except Exception as e:
+        return jsonify({'error': 'Error interno del servidor'}), 500
 
 @app.route("/aviones/<id>", methods=["DELETE"])
-def eliminar_avion(id):
+def delete_avion(id):
     avion = Avion.query.get(id)
     if avion:
         db.session.delete(avion)
@@ -93,7 +99,7 @@ def eliminar_avion(id):
         return jsonify({"mensaje": "Avión eliminado exitosamente"})
 
 @app.route("/aviones/<id>", methods=["PUT"])
-def editar_avion(id):
+def edit_avion(id):
     avion = Avion.query.get(id)
     if avion:
         data = request.get_json()
@@ -106,6 +112,22 @@ def editar_avion(id):
         db.session.commit()
         return jsonify({"mensaje": "Avión editado exitosamente"})
 
+@app.route("/lineasaereas",methods=["GET"])
+def get_lineas_aereas():
+    try:
+        lineas_aereas = LineaAerea.query.all()
+        lineas_aereas_data = []
+        for linea_aerea in lineas_aereas:
+            lineas_aereas_data.append({
+                'id': linea_aerea.id,
+                'nombre': linea_aerea.nombre,
+                'pais': linea_aerea.pais,
+                'foto': linea_aerea.foto
+            })
+        return jsonify({'lineas_aereas': lineas_aereas_data})
+    except Exception as error:
+        print(f"Error: {error}")
+        return jsonify({'mensaje': 'Error en el servidor'}), 500
 
 if __name__ == '__main__':
     print("Starting server...")
