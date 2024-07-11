@@ -91,7 +91,7 @@
     function respuesta_recibida (data) {
         if (data.mensaje === "Avión agregado exitosamente") {
             alert("Avión agregado exitosamente");
-            window.location.reload();
+            window.location.href = `/Aviones/Avion/?id=${data.avion.id}`;
         } else {
             alert("Error al agregar el avión");
         }
