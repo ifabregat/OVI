@@ -69,7 +69,7 @@ def create_avion():
         print(f"Error: {error}")
         return jsonify({'mensaje': 'Error en el servidor'}), 500
 
-@app.route("/aviones/<int:id>", methods=["GET"])
+@app.route("/aviones/<id>", methods=["GET"])
 def get_avion_by_id(id):
     avion = Avion.query.get(id)
     if avion:
@@ -83,6 +83,15 @@ def get_avion_by_id(id):
             'paisfabricacion': avion.paisfabricacion
         }
     return jsonify({'avion': avion_data})
+
+@app.route("/aviones/<id>", methods=["DELETE"])
+def eliminar_avion(id):
+    avion = Avion.query.get(id)
+    if avion:
+        db.session.delete(avion)
+        db.session.commit()
+        return jsonify({"mensaje": "Avión eliminado exitosamente"})
+
 
 if __name__ == '__main__':
     print("Starting server...")
