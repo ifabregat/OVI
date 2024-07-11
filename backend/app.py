@@ -69,6 +69,21 @@ def create_avion():
         print(f"Error: {error}")
         return jsonify({'mensaje': 'Error en el servidor'}), 500
 
+@app.route("/aviones/<int:id>", methods=["GET"])
+def get_avion_by_id(id):
+    avion = Avion.query.get(id)
+    if avion:
+         avion_data = {
+             'id': avion.id,
+            'fabricante': avion.fabricante,
+            'modelo': avion.modelo,
+            'propulsion': avion.propulsion,
+            'aniofabricacion': avion.aniofabricacion,
+            'foto': avion.foto,
+            'paisfabricacion': avion.paisfabricacion
+        }
+    return jsonify({'avion': avion_data})
+
 if __name__ == '__main__':
     print("Starting server...")
     with app.app_context():
