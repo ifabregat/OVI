@@ -92,6 +92,20 @@ def eliminar_avion(id):
         db.session.commit()
         return jsonify({"mensaje": "Avión eliminado exitosamente"})
 
+@app.route("/aviones/<id>", methods=["PUT"])
+def editar_avion(id):
+    avion = Avion.query.get(id)
+    if avion:
+        data = request.get_json()
+        avion.fabricante = data['fabricante']
+        avion.modelo = data['modelo']
+        avion.propulsion = data['propulsion']
+        avion.aniofabricacion = data['aniofabricacion']
+        avion.foto = data['foto']
+        avion.paisfabricacion = data['paisfabricacion']
+        db.session.commit()
+        return jsonify({"mensaje": "Avión editado exitosamente"})
+
 
 if __name__ == '__main__':
     print("Starting server...")
