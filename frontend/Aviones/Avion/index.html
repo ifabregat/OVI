@@ -39,59 +39,14 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                        <button class="btn bg-danger" onclick="">Eliminar</button>
+                        <button class="btn bg-danger" onclick="eliminar_avion()">Eliminar</button>
                         <a id="btnEdit" class="btn bg-warning" href="/frontend/Aviones/Editar/index.html">Editar</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-  <script>
-    const params = new URLSearchParams(window.location.search);
-    const id = params.get("id");
-
-    if (id === null) {
-        window.location.href = "/Aviones/index.html";
-    }
-
-    function respuesta_recibida(respuesta) {
-        return respuesta.json();
-    }
-
-    function analizar_data(data) {
-    const avion = data.avion;
-
-    const fabricanteElement = document.getElementById("fabricante");
-    fabricanteElement.innerText = `Fabricante: ${avion.fabricante}`;
-
-    const modeloElement = document.getElementById("modelo");
-    modelo.setAttribute("class", "text-decoration-underline")
-    modeloElement.innerText = avion.modelo;
-
-    const foto = document.getElementById("foto");
-    foto.setAttribute("src", avion.foto);
-    foto.setAttribute("class", "img-fluid")
-
-    const aniofabricacion = document.getElementById("aniofabricacion");
-    aniofabricacion.innerText = avion.aniofabricacion? `Año de fabricacion: ${avion.aniofabricacion}` : 'Año de fabricacion: desconocido';
-
-    const paisfabricacion = document.getElementById("paisfabricacion");
-    paisfabricacion.innerText = avion.paisfabricacion? `Pais de fabricacion: ${avion.paisfabricacion}` : 'Pais de fabricacion: desconocido';
-
-    const propulsion = document.getElementById("propulsion");
-    propulsion.innerText = avion.propulsion? `Tipo de propulsion: ${avion.propulsion}` : 'Tipo de propulsion: desconocido';
-}
-
-    function error_solicitud(error) {
-        console.log("Error: ");
-        console.log(error);
-    }
-
-    fetch(`http://localhost:5000/aviones/${id}`)
-       .then(respuesta_recibida)
-       .then(analizar_data)
-       .catch(error_solicitud);
-  </script>
+    <script src="./scripts.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>
