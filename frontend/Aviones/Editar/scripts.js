@@ -21,11 +21,11 @@ fetch(`http://localhost:5000/aviones/${id}`)
 .catch((error) => console.log("ERROR: ", error));
 
 function respuesta_recibida (data) {
-    if (data.mensaje === "Avión agregado exitosamente") {
-        alert("Avión agregado exitosamente");
-        window.location.href = `/Aviones/Avion/?id=${data.avion.id}`;
+    if (data.mensaje === "Avión editado exitosamente") {
+        alert("Avión editado exitosamente");
+        window.location.href = `/Aviones/Avion/?id=${id}`;
     } else {
-        alert("Error al agregar el avión");
+        alert("Error al editar el avión");
     }
 }
 
@@ -41,8 +41,8 @@ function editar_avion (event){
     const foto = formData.get("foto");
     const paisfabricacion = formData.get("paisfabricacion");
 
-    fetch("http://localhost:5000/aviones", {
-        method: "POST",
+    fetch(`http://localhost:5000/aviones/${id}`, {
+        method: "PUT",
         headers: {
             "Content-Type": "application/json"
         },
