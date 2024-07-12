@@ -162,6 +162,24 @@ def create_lineasaereas():
     except Exception as error:
         print(f"Error: {error}")
         return jsonify({'mensaje': 'Error en el servidor'}), 500
+    
+@app.route("/lineasaereas/<id>", methods=["GET"])
+def get_lineaaerea_by_id(id):
+    try:
+        id = int(id)
+        lineas = LineaAerea.query.get(id)
+        if lineas:
+            linea_data = {
+                'id': lineas.id,
+                'nombre': lineas.nombre,
+                'codigo': lineas.codigo,
+                'foto': lineas.foto
+            }
+            return jsonify({'linea': linea_data})
+        else:
+            return jsonify({'error': 'Linea aerea no encontrado'}), 404
+    except Exception as e:
+        return jsonify({'error': 'Error interno del servidor'}), 500
 
 if __name__ == '__main__':
     print("Starting server...")
