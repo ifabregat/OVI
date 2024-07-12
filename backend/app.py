@@ -11,7 +11,14 @@ db.init_app(app)
 
 @app.route('/')
 def home():
-    return redirect('/aviones')
+    return """
+    <html>
+    <h1>OVI API:</h1>
+    <a href="/aviones">Aviones</a>
+    <br>
+    <a href="/lineasaereas">Lineas Aereas</a>
+    </html>
+"""
 
 @app.route('/aviones', methods=['GET'])
 def get_aviones():
@@ -111,47 +118,20 @@ def edit_avion(id):
         avion.paisfabricacion = data['paisfabricacion']
         db.session.commit()
         return jsonify({"mensaje": "Avión editado exitosamente"})
-
-@app.route("/lineasaereas",methods=["GET"])
-def get_lineas_aereas():
-    try:
-        lineas_aereas = LineaAerea.query.all()
-        lineas_aereas_data = []
-        for linea_aerea in lineas_aereas:
-            lineas_aereas_data.append({
-                'id': linea_aerea.id,
-                'nombre': linea_aerea.nombre,
-                'pais': linea_aerea.pais,
-                'foto': linea_aerea.foto
-            })
-        return jsonify({'lineas_aereas': lineas_aereas_data})
-    except Exception as error:
-        print(f"Error: {error}")
-        return jsonify({'mensaje': 'Error en el servidor'}), 500
     
-@app.route("/lineasaereas", methods=["POST"])
-def create_lineaaerea():
+@app.route('/lineasaereas', methods=['GET'])
+def get_lineasaereas():
     try:
-        data = request.get_json()
-        nombre = request.json.get('nombre')
-        pais = request.json.get('pais')
-        foto = request.json.get('foto')
-
-        nueva_lineaaerea = LineaAerea(
-            nombre=nombre,
-            pais=pais,
-            foto=foto
-        )
-
-        db.session.add(nueva_lineaaerea)
-        db.session.commit()
-
-        return jsonify({"mensaje": "Linea aerea agregada exitosamente", "linea_aerea": {
-            'id': nueva_lineaaerea.id,
-            'nombre': nueva_lineaaerea.nombre,
-            'pais': nueva_lineaaerea.pais,
-            'foto': nueva_lineaaerea.foto
-        }}), 201
+        lineas = LineaAerea.query.all()
+        lineas_data = []
+        for linea in lineas:
+            lineas_data.append({
+                'id': linea.id,
+                'nombre': linea.nombre,
+                'codigo': linea.codigo,
+                'foto': linea.foto
+            })
+        return jsonify({'lineas': lineas_data})
     except Exception as error:
         print(f"Error: {error}")
         return jsonify({'mensaje': 'Error en el servidor'}), 500
