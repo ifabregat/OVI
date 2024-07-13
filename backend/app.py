@@ -167,19 +167,40 @@ def create_lineasaereas():
 def get_lineaaerea_by_id(id):
     try:
         id = int(id)
-        lineas = LineaAerea.query.get(id)
-        if lineas:
+        linea = LineaAerea.query.get(id)
+        if linea:
             linea_data = {
-                'id': lineas.id,
-                'nombre': lineas.nombre,
-                'codigo': lineas.codigo,
-                'foto': lineas.foto
+                'id': linea.id,
+                'nombre': linea.nombre,
+                'codigo': linea.codigo,
+                'foto': linea.foto
             }
             return jsonify({'linea': linea_data})
         else:
             return jsonify({'error': 'Linea aerea no encontrado'}), 404
     except Exception as e:
         return jsonify({'error': 'Error interno del servidor'}), 500
+
+@app.route("/lineasaereas/<id>", methods=["PUT"])
+def edit_lineaaerea(id):
+    linea = LineaAerea.query.get(id)
+    if linea:
+        data = request.get_json()
+        if data:
+            if 'id' in data:
+                linea.id = data['id']
+            if 'nombre' in data:
+                linea.nombre = data['nombre']
+            if 'codigo' in data:
+                linea.codigo = data['codigo']
+            if 'foto' in data:
+                linea.foto = data['foto']
+            db.session.commit()
+            return jsonify({"mensaje": "Linea editada exitosamente"})
+        else:
+            return jsonify({"mensaje": "No data provided"}), 400
+    else:
+        return jsonify({"mensaje": "Linea not found"}), 404
 
 if __name__ == '__main__':
     print("Starting server...")
