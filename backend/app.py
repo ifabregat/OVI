@@ -201,6 +201,14 @@ def edit_lineaaerea(id):
             return jsonify({"mensaje": "No data provided"}), 400
     else:
         return jsonify({"mensaje": "Linea not found"}), 404
+    
+@app.route("/lineasaereas/<id>", methods=["DELETE"])
+def delete_lineaaerea(id):
+    linea = LineaAerea.query.get(id)
+    if linea:
+        db.session.delete(linea)
+        db.session.commit()
+        return jsonify({"mensaje": "Linea eliminada exitosamente"})
 
 if __name__ == '__main__':
     print("Starting server...")
