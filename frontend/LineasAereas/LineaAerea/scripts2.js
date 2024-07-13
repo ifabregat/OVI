@@ -33,3 +33,28 @@ fetch(`http://localhost:5000/lineasaereas/${id}`)
     .then(respuesta_recibida)
     .then(analizar_data)
     .catch(error_solicitud);
+
+function eliminar_respuesta (data){
+    if (!data || !data.error){
+         alert("Linea eliminado");
+        window.location.href = "/LineasAereas/index.html";
+    }
+    else{
+        alert("No se pudo eliminar la aerolinea");        
+    }
+    }
+
+function eliminar_aerolinea(){
+    const confirmation = confirm(`Queres borrar la aerolinea ${nombre.innerText}`);
+
+    if(!confirmation){
+        return;
+    }
+
+    fetch(`http://localhost:5000/lineasaereas/${id}`, {
+        method: "DELETE"
+    })
+    .then(respuesta_recibida)
+    .then(eliminar_respuesta)
+    .catch(error_solicitud);
+}
