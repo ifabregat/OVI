@@ -84,6 +84,7 @@ function agregar_avion(){
     const li = document.createElement('li');
     li.innerText = id_avion.options[id_avion.selectedIndex].text;
     li.setAttribute("id", avion_id);
+    li.setAttribute("class", "espacio-entre-botones");
 
     const borrar = document.createElement('button');
     borrar.innerText = 'Borrar';
