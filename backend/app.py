@@ -153,15 +153,19 @@ def create_lineasaereas():
         db.session.add(nueva_linea)
         db.session.commit()
 
-        return jsonify({"mensaje": "Aerolinea agregada exitosamente", "avion": {
-            'id': nueva_linea.id,
-            'nombre': nueva_linea.nombre,
-            'codigo': nueva_linea.codigo,
-            'foto': nueva_linea.foto
-        }}), 201
+        return jsonify({
+            "mensaje": "Aerolinea agregada exitosamente",
+            "linea": {
+                'id': nueva_linea.id,
+                'nombre': nueva_linea.nombre,
+                'codigo': nueva_linea.codigo,
+                'foto': nueva_linea.foto
+            }
+        }), 201
     except Exception as error:
         print(f"Error: {error}")
         return jsonify({'mensaje': 'Error en el servidor'}), 500
+
     
 @app.route("/lineasaereas/<id>", methods=["GET"])
 def get_lineaaerea_by_id(id):
