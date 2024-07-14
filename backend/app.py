@@ -258,9 +258,11 @@ def get_flotas_by_linea(id_linea):
 @app.route("/flotas/<id_linea>", methods=["DELETE"])
 def delete_flota(id_linea):
     try:
-        id_linea = int(id_linea)
         data = request.get_json()
-        avion_id = data.get('avion_id')
+        if not data or 'avion_id' not in data:
+            return jsonify({"mensaje": "ID de avión no proporcionado"}), 400
+
+        avion_id = data['avion_id']
 
         flota = AvionesLineas.query.filter_by(id_avion=avion_id, id_linea=id_linea).first()
 
@@ -273,6 +275,7 @@ def delete_flota(id_linea):
     except Exception as error:
         print(f"Error: {error}")
         return jsonify({'mensaje': 'Error en el servidor'}), 500
+
         
 @app.route("/flotas", methods=["PUT"])
 def create_flota():
