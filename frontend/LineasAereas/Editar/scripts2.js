@@ -76,6 +76,11 @@ function agregar_avion(){
     const id_avion = document.getElementById('modelos');
     const avion_id = `avion_${id_avion.value}`;
 
+    if (!id_avion.value) {
+        alert("Seleccione un avion");
+        return;
+    }
+
     if (document.getElementById(avion_id)) {
         alert("Ya se cargo ese avion");
         return;
@@ -95,8 +100,24 @@ function agregar_avion(){
 
     const flota = document.getElementById('flota');
     flota.appendChild(li);
-}
 
+    fetch ("http://localhost:5000/flotas", {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            avion_id: id_avion.value,
+            linea_id: id_linea
+        }),
+    })
+    .then(data_recibida)
+    .then((data) => {
+        console.log(data);
+        alert(data.mensaje);
+    })
+    .catch(analizar_error);
+}
 
 function borrar_avion(id_avion){
     document.getElementById(id_avion).remove();
