@@ -224,24 +224,27 @@ def get_flotas():
         for flota in flotas:
             flotas_data.append({
                 'id': flota.id,
-                'avion_id': flota.avion_id,
-                'linea_id': flota.linea_id
+                'avion_id': flota.id_avion,
+                'linea_id': flota.id_linea
             })
         return jsonify({'flotas': flotas_data})
     except Exception as error:
         print(f"Error: {error}")
-        return jsonify({'mensaje': 'Error en el servidor'}), 500  
-
+        return jsonify({'mensaje': 'Error en el servidor'}), 500
+        
 @app.route("/flotas", methods=["PUT"])
 def create_flota():
     try:
         data = request.get_json()
-        avion_id = request.json.get('avion_id')
-        linea_id = request.json.get('linea_id')
+        id_avion = data.get('avion_id')
+        id_linea = data.get('linea_id')
+
+        if not id_avion or not id_linea:
+            return jsonify({'mensaje': 'Datos incompletos'}), 400
 
         nueva_flota = AvionesLineas(
-            avion_id=avion_id,
-            linea_id=linea_id
+            id_avion=id_avion,
+            id_linea=id_linea
         )
 
         db.session.add(nueva_flota)
@@ -251,8 +254,8 @@ def create_flota():
             "mensaje": "Flota agregada exitosamente",
             "flota": {
                 'id': nueva_flota.id,
-                'avion_id': nueva_flota.avion_id,
-                'linea_id': nueva_flota.linea_id
+                'avion_id': nueva_flota.id_avion,
+                'linea_id': nueva_flota.id_linea
             }
         }), 201
     except Exception as error:
