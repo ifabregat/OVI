@@ -231,6 +231,24 @@ def get_flotas():
     except Exception as error:
         print(f"Error: {error}")
         return jsonify({'mensaje': 'Error en el servidor'}), 500
+    
+@app.route("/flotas/<id_linea>", methods=["GET"])
+def get_flotas_by_linea(id_linea):
+    try:
+        id_linea = int(id_linea)
+        flotas = AvionesLineas.query.filter_by(id_linea=id_linea).all()
+        flotas_data = []
+        for flota in flotas:
+            flotas_data.append({
+                'id': flota.id,
+                'avion_id': flota.id_avion,
+                'linea_id': flota.id_linea
+            })
+        return jsonify({'flotas': flotas_data}), 200
+    except Exception as error:
+        print(f"Error: {error}")
+        return jsonify({'mensaje': 'Error en el servidor'}), 500
+
         
 @app.route("/flotas", methods=["PUT"])
 def create_flota():
