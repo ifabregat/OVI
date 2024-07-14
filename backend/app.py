@@ -25,7 +25,8 @@ def home():
 @app.route('/aviones', methods=['GET'])
 def get_aviones():
     try:
-        aviones = Avion.query.all()
+        aviones = Avion.query.order_by(Avion.modelo).all()
+        
         aviones_data = []
         for avion in aviones:
             aviones_data.append({
@@ -41,6 +42,7 @@ def get_aviones():
     except Exception as error:
         print(f"Error: {error}")
         return jsonify({'mensaje': 'Error en el servidor'}), 500
+
 
 @app.route("/aviones", methods=["POST"])
 def create_avion():
@@ -124,7 +126,7 @@ def edit_avion(id):
 @app.route('/lineasaereas', methods=['GET'])
 def get_lineasaereas():
     try:
-        lineas = LineaAerea.query.all()
+        lineas = LineaAerea.query.order_by(LineaAerea.nombre).all()
         lineas_data = []
         for linea in lineas:
             lineas_data.append({
