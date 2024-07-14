@@ -1,9 +1,15 @@
 console.log("Hola desde el frontend");
 
-function respuesta_recibida(data) {
-  console.log("Respuesta recibida:", data); // Verifica la respuesta completa
-  alert("Linea agregada exitosamente");
-  window.location.href = `/LineasAereas/LineaAerea/?id=${data.linea.id}`;
+function respuesta_recibida (data) {
+  const flota = confirm("Queres agregar una flota a la aerolinea?");
+
+  if (flota) {
+    window.location.href = `/LineasAereas/Editar/?id=${data.linea.id}`;
+  }
+  else {
+    window.location.href = `/LineasAereas/LineaAerea/?id=${data.linea.id}`;
+  }
+
 }
 
 function crear_aerolinea(event) {
