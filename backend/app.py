@@ -17,6 +17,8 @@ def home():
     <a href="/aviones">Aviones</a>
     <br>
     <a href="/lineasaereas">Lineas Aereas</a>
+    <br>
+    <a href="/flotas">Flotas</a>
     </html>
 """
 
@@ -213,6 +215,49 @@ def delete_lineaaerea(id):
         db.session.delete(linea)
         db.session.commit()
         return jsonify({"mensaje": "Linea eliminada exitosamente"})
+    
+@app.route("/flotas", methods=["GET"])
+def get_flotas():
+    try:
+        flotas = AvionesLineas.query.all()
+        flotas_data = []
+        for flota in flotas:
+            flotas_data.append({
+                'id': flota.id,
+                'avion_id': flota.avion_id,
+                'linea_id': flota.linea_id
+            })
+        return jsonify({'flotas': flotas_data})
+    except Exception as error:
+        print(f"Error: {error}")
+        return jsonify({'mensaje': 'Error en el servidor'}), 500  
+
+@app.route("/flotas", methods=["PUT"])
+def create_flota():
+    try:
+        data = request.get_json()
+        avion_id = request.json.get('avion_id')
+        linea_id = request.json.get('linea_id')
+
+        nueva_flota = AvionesLineas(
+            avion_id=avion_id,
+            linea_id=linea_id
+        )
+
+        db.session.add(nueva_flota)
+        db.session.commit()
+
+        return jsonify({
+            "mensaje": "Flota agregada exitosamente",
+            "flota": {
+                'id': nueva_flota.id,
+                'avion_id': nueva_flota.avion_id,
+                'linea_id': nueva_flota.linea_id
+            }
+        }), 201
+    except Exception as error:
+        print(f"Error: {error}")
+        return jsonify({'mensaje': 'Error en el servidor'}), 500
 
 if __name__ == '__main__':
     print("Starting server...")
