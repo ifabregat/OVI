@@ -1,6 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, Integer, String, ForeignKey
-from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 
 db = SQLAlchemy()
@@ -15,12 +14,16 @@ class Avion(db.Model):
     aniofabricacion = Column(Integer)
     foto = Column(String)
 
+    lineas = relationship('LineaAerea', secondary='aviones_lineas', back_populates='aviones')
+
 class LineaAerea(db.Model):
     __tablename__ = 'linea_aerea'
     id = Column(Integer, primary_key=True)
     nombre = Column(String)
     codigo = Column(String)
     foto = Column(String)
+
+    aviones = relationship('Avion', secondary='aviones_lineas', back_populates='lineas')
 
 class AvionesLineas(db.Model):
     __tablename__ = 'aviones_lineas'
