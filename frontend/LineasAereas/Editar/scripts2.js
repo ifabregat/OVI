@@ -121,4 +121,21 @@ function agregar_avion(){
 
 function borrar_avion(id_avion){
     document.getElementById(id_avion).remove();
+
+    fetch (`http://localhost:5000/flotas/${id_linea}`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            avion_id: id_avion.split('_')[1],
+            linea_id: id_linea
+        }),
+    })
+    .then(data_recibida)
+    .then((data) => {
+        console.log(data);
+        alert(data.mensaje);
+    })
+    .catch(analizar_error);
 }
