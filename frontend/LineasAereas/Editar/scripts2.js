@@ -20,6 +20,7 @@ fetch (`http://localhost:5000/lineasaereas/${id_linea}`)
 .then(analizar_data)
 .catch(analizar_error)
 
+
 function respuesta_recibida (data) {
     if (data.mensaje === "Linea editada exitosamente") {
         alert("Linea editada exitosamente");
@@ -28,6 +29,33 @@ function respuesta_recibida (data) {
         alert("Error al editar la linea");
     }
 }
+
+function data_recibida_flotas(data) {
+    console.log(data);
+    const container = document.getElementById('flota');
+
+    for (let i = 0; i < data.flotas.length; i++) {
+        const avion = data.flotas[i].avion;
+
+        const li = document.createElement('li');
+        li.innerText = `${avion.fabricante} ${avion.modelo}`;
+        li.setAttribute("class", "espacio-entre-botones");
+
+        const borrar = document.createElement('button');
+        borrar.innerText = 'Borrar';
+        borrar.onclick = function(){ borrar_avion(avion.id) };
+        borrar.setAttribute("type", "button");
+        borrar.setAttribute("class", "btn btn-danger btn-sm ms-2");
+        li.appendChild(borrar);
+
+        container.appendChild(li);
+    }
+}
+
+fetch (`http://localhost:5000/flotas/${id_linea}`)
+.then(data_recibida)
+.then(data_recibida_flotas)
+.catch(analizar_error)
 
 function editar_linea(event){
     event.preventDefault();
