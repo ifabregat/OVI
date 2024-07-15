@@ -42,7 +42,7 @@ def get_aviones():
                 query = query.filter(Avion.propulsion == 'helice')
             elif propulsion.lower() == 'reactor':
                 query = query.filter(Avion.propulsion == 'reactor')
-            elif propulsion.lower() == 'piston':
+            else:
                 query = query.filter(Avion.propulsion == 'piston')
         if paisfabricacion:
             query = query.filter(Avion.paisfabricacion == paisfabricacion)
