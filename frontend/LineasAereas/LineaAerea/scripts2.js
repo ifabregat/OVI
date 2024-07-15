@@ -62,6 +62,8 @@ function eliminar_aerolinea(){
 function data_recibida_flotas(data) {
     const container = document.getElementById('flota');
 
+    console.log(data);
+
     if (data.flotas) {
         for (let i = 0; i < data.flotas.length; i++) {
             const avion = data.flotas[i].avion;

@@ -21,6 +21,10 @@
           width: 100%;
           height: auto; /* La altura se ajusta automáticamente para mantener la proporción */
       }
+      #flota {
+    list-style-type: disc; /* Asegúrate de que los elementos tengan puntos de lista */
+    padding-left: 20px;   /* Asegúrate de que haya suficiente espacio para los puntos de lista */
+}
     </style>
 </head>
 <body class="bg-primary-subtle">
@@ -54,10 +58,9 @@
                                 <div class="text-content">
                                     <h1 id="nombre"></h1>
                                     <p id="codigo"></p>
-                                    <div id="flota">
+                                    <div>
                                       <h5>Flota:</h5>
-                                        <ul>
-                                            <!-- Aquí puedes agregar elementos de lista si es necesario -->
+                                        <ul id="flota">
                                         </ul>
                                     </div>
                                 </div>

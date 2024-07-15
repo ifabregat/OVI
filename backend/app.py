@@ -299,7 +299,7 @@ def get_flotas_by_linea(id_linea):
         print(f"Error: {error}")
         return jsonify({'mensaje': 'Error en el servidor'}), 500
 
-@app.route("/flotas", methods=["POST"])
+@app.route("/flotas", methods=["PUT"])
 def create_flota():
     try:
         data = request.get_json()
