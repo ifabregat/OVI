@@ -58,3 +58,27 @@ function eliminar_aerolinea(){
     .then(eliminar_respuesta)
     .catch(error_solicitud);
 }
+
+function data_recibida_flotas(data) {
+    const container = document.getElementById('flota');
+
+    if (data.flotas) {
+        for (let i = 0; i < data.flotas.length; i++) {
+            const avion = data.flotas[i].avion;
+
+            if (avion) {
+                const li = document.createElement('li');
+                li.className = 'flota-item mb-2';
+                li.innerText = `${avion.fabricante} ${avion.modelo}`;
+                container.appendChild(li);
+            }
+        }
+    } else {
+        console.error("No se recibieron datos de las flotas");
+    }
+}
+
+fetch(`http://localhost:5000/flotas/${id}`)
+.then(respuesta_recibida)
+.then(data_recibida_flotas)
+.catch(error_solicitud);
